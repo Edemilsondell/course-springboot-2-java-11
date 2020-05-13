@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.educandoWeb.workshop.entities.User;
 import com.educandoWeb.workshop.repositories.UserRepository;
+import com.educandoWeb.workshop.servicies.exceptions.ResourceNotFoundException;
 
 
 @Service
@@ -22,7 +23,7 @@ public class UserService {
 	
 	public User findById(Long id) {
 		Optional<User> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	//Operação pra retornar o usuário salvo
